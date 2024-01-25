@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" integrity="sha512-1ycn6IcaQQ40/MKBW2W4Rhis/DbILU74C1vSrLJxCq57o941Ym01SwNsOMqvEBFlcgUa6xLiPY/NS5R+E6ztJQ==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="css/style.css">
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <div class="playlist">
+            <div class="nav">
+                <i class="fas fa-fw fa-chevron-left"></i>
+                <h3 class="playlist-title">
+                    Playlist
+                </h3>
+            </div>
+            <ul id="playlist">
+                
+            </ul>
+        </div>
+        <div class="music-player">
+            <div class="mp-nav">
+                <i class="fas fa-fw fa-chevron-down min"></i>
+                <h3 class="mp-title">
+                    Playing From Playlist
+                </h3>
+                <div class="mp-dot">
+                    <i class="fas fa-fw fa-ellipsis-v"></i>
+                </div>
+            </div>
+            <div class="video-container">
+                <video autoplay muted loop class="bg-video">
+                </video>
+            </div>
+            <img alt="cover" class="cover-image">
+            <div class="mp-content">
+                <div class="songs">
+                    <h3 class="song"></h3>
+                    <p class="artist"></p>
+                </div>
+                <input id="progress" class="progress" type="range" value="0" step="1" min="0" max="100">
+
+                <audio id="audio" src=""></audio>
+                <div class="control">
+                    <div class="btn btn-repeat">
+                        <i class="fas fa-redo"></i>
+                    </div>
+                    <div class="btn btn-prev">
+                        <i class="fas fa-step-backward"></i>
+                    </div>
+                    <div class="btn btn-toggle-play">
+                        <i class="fas fa-pause icon-pause"></i>
+                        <i class="fas fa-play icon-play"></i>
+                    </div>
+                    <div class="btn btn-next">
+                        <i class="fas fa-step-forward"></i>
+                    </div>
+                    <div class="btn btn-random">
+                        <i class="fas fa-random"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        var isPlaying = false;
+        var updateTime = function(){
+            var widthOfProgressBar = Math.floor( (100 / $('#audio').get(0).duration) * $('#audio').get(0).currentTime);
+            $('#progress').val(widthOfProgressBar);
+        }
+        $('.music-player').hide();
+        $(document).ready(function(){
+            $('.min').unbind('click').on('click', function(){
+                console.log('run')
+                $('.playlist').show(200);
+                $('.music-player').hide();
+            });
+
+            $('.btn-toggle-play').unbind('click').on('click', function(){
+                if(isPlaying){
+                    $('#audio').get(0).pause();
+                }else{
+                    $('#audio').get(0).play();
+                }
+            })
+        });
+
+        var Spotify = {
+            init: function(){
+                $.ajax({
+                    url: 'songs.json',
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(r){
+                        $.each(r, function(){
+                            $('#playlist').append(`
+                                <li onclick="Spotify.play(${this.id})">
+                                    <img src="${this.cover}" alt="cover_photo">
+                                    <div class="song-content">
+                                        <h5 class="song-title">${this.song}</h5>
+                                        <p class="singer">${this.singer}</p>
+                                    </div>
+                                    <div class="more-dot">
+                                        <i class="fas fa-fw fa-ellipsis-v"></i>
+                                    </div>
+                                </li>
+                            `);
+                        });
+                    }
+                })
+            },
+            play: function(v){
+                $('.bg-video').removeAttr('src');
+                $('.cover-image').removeAttr('src');
+                $('#audio').removeAttr('src');
+                $('.playlist').hide();
+                $.ajax({
+                    url: `songs.json`,
+                    type: 'get',
+                    dataType: 'json',
+                    success: function(r){
+                        $('.music-player').show(200);
+                        $.each(r, function(){        
+                            if(this.id == v){
+                                $('.bg-video').attr('src', this.video);
+                                $('.cover-image').attr('src', this.cover);
+                                $('.song').text(this.song);
+                                $('.artist').text(this.singer);
+                                $('#audio').attr('src', this.audio);
+                                $('#audio').get(0).play()
+
+                                $('#audio').bind('timeupdate', updateTime)
+
+                                $("audio").on({
+                                    play:function(){
+                                        isPlaying = true;
+                                        $('.mp-content .icon-pause').css('display', 'inline-block');
+                                        $('.mp-content .icon-play').css('display', 'none');
+                                    },
+                                    pause:function(){
+                                        isPlaying = false;
+                                        $('.mp-content .icon-pause').css('display', 'none');
+                                        $('.mp-content .icon-play').css('display', 'inline-block');
+                                    },
+                                })
+                            }
+                        }); 
+                    }
+                })
+            }
+        }
+        Spotify.init();
+        
+    </script>
+</body>
+</html>

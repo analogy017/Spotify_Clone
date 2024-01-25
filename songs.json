@@ -1,0 +1,82 @@
+[
+    {
+        "id" : 1,
+        "song" : "Heart Attack",
+        "singer" : "Demi Lovato",
+        "cover" : "https://iili.io/JaDiSov.jpg",
+        "audio" : "music/heart-attack.mp3",
+        "video" : "video/heart-attack.mp4"
+    },
+    {
+        "id" : 2,
+        "song" : "The Baddest",
+        "singer" : "KDA",
+        "cover" : "https://iili.io/JaDiUVR.jpg",
+        "audio" : "music/baddest.mp3",
+        "video" : "video/baddest.mp4"
+    },
+    {
+        "id" : 3,
+        "song" : "Do It Again",
+        "singer" : "Pia Mia",
+        "cover" : "https://iili.io/JaDigPp.jpg",
+        "audio" : "music/do-it-again.mp3",
+        "video" : "video/do-it-again.mp4"
+    },
+    {
+        "id" : 4,
+        "song" : "Angels Like You",
+        "singer" : "Miley Cyrus",
+        "cover" : "https://iili.io/JaDi4KN.jpg",
+        "audio" : "music/angels-like-you.mp3",
+        "video" : "video/angels-like-you.mp4"
+    },
+    {
+        "id" : 5,
+        "song" : "Hero",
+        "singer" : "Cash Cash",
+        "cover" : "https://iili.io/JaDi6lI.jpg",
+        "audio" : "music/hero.mp3",
+        "video" : "video/hero.mp4"
+    },
+    {
+        "id" : 6,
+        "song" : "King and Queen",
+        "singer" : "Ava Max",
+        "cover" : "https://iili.io/JaDiPSt.jpg",
+        "audio" : "music/king-and-queen.mp3",
+        "video" : "video/king-and-queen.mp4"
+    },
+    {
+        "id" : 7,
+        "song" : "More",
+        "singer" : "KDA",
+        "cover" : "https://iili.io/JaDisHX.jpg",
+        "audio" : "music/more.mp3",
+        "video" : "video/more.mp4"
+    },
+    {
+        "id" : 8,
+        "song" : "Tie Me Down",
+        "singer" : "Gryffin",
+        "cover" : "https://iili.io/JaDiLRn.jpg",
+        "audio" : "music/tie-me-down.mp3",
+        "video" : "video/tie-me-down.mp4"
+    },
+    {
+        "id" : 9,
+        "song" : "OMG",
+        "singer" : "New Jeans",
+        "cover" : "https://iili.io/JaDiQNs.jpg",
+        "audio" : "music/omg.mp3",
+        "video" : "video/omg.mp4"
+    },
+    {
+        "id" : 10,
+        "song" : "Villain",
+        "singer" : "KDA",
+        "cover" : "https://iili.io/JaDiZDG.jpg",
+        "audio" : "music/villain.mp3",
+        "video" : "video/villain.mp4"
+    }
+]
